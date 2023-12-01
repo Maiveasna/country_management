@@ -1,43 +1,100 @@
-export interface CountryTpe  {
-    flags:        Flags;
-    name:         Name;
-    cca2:         string;
-    cca3:         string;
-    idd:          Idd;
-    altSpellings: string[];
+export interface CountryTpe {
+  name: Name
+  tld: string[]
+  cca2: string
+  ccn3: string
+  cca3: string
+  independent: boolean
+  status: string
+  unMember: boolean
+  currencies: Currencies
+  idd: Idd
+  capital: string[]
+  altSpellings: string[]
+  region: string
+  subregion: string
+  languages: Languages
+  translations: { [key: string]: Translation }
+  latlng: number[]
+  landlocked: boolean
+  area: number
+  demonyms: Demonyms
+  flag: string
+  maps: Maps
+  population: number
+  car: Car
+  timezones: string[]
+  continents: string[]
+  flags: CoatOfArms
+  coatOfArms: CoatOfArms
+  startOfWeek: string
+  capitalInfo: CapitalInfo
+  postalCode: PostalCode
 }
 
-export interface Flags {
-    png: string;
-    svg: string;
-    alt: string;
+export interface CapitalInfo {
+  latlng: number[]
+}
+
+export interface Car {
+  signs: string[]
+  side: string
+}
+
+export interface CoatOfArms {
+  png: string
+  svg: string
+  alt?: string
+}
+
+export interface Currencies {
+  AUD: Aud
+}
+
+export interface Aud {
+  name: string
+  symbol: string
+}
+
+export interface Demonyms {
+  eng: Eng
+}
+
+export interface Eng {
+  f: string
+  m: string
 }
 
 export interface Idd {
-    root:     Root;
-    suffixes: string[];
+  root: string
+  suffixes: string[]
 }
 
-export enum Root {
-    Empty = "",
-    The1 = "+1",
-    The2 = "+2",
-    The3 = "+3",
-    The4 = "+4",
-    The5 = "+5",
-    The6 = "+6",
-    The7 = "+7",
-    The8 = "+8",
-    The9 = "+9",
+export interface Languages {
+  eng: string
+}
+
+export interface Maps {
+  googleMaps: string
+  openStreetMaps: string
 }
 
 export interface Name {
-    common:     string;
-    official:   string;
-    nativeName: { [key: string]: NativeName };
+  common: string
+  official: string
+  nativeName: NativeName
 }
 
 export interface NativeName {
-    official: string;
-    common:   string;
+  eng: Translation
+}
+
+export interface Translation {
+  official: string
+  common: string
+}
+
+export interface PostalCode {
+  format: string
+  regex: string
 }

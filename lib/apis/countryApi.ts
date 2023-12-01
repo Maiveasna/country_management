@@ -30,7 +30,7 @@ export const CountryApi = {
     return await API.get(URL).then((response) => response.data)
   },
   navigateUsingGoogleMap: (
-    to: string | { lat: string; lng: string },
+    to: string | { lat?: string; lng?: string },
     waypoints: { longitude: any; latitude: any }[] = []
   ) => {
     let url = "https://www.google.com/maps/dir/?api=1&dir_action=navigate" //&travelmode=driving

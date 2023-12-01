@@ -1,11 +1,14 @@
-"use client"
+"use client";
 
-import { useEffect, useState } from "react"
+import { useEffect, useState } from "react";
+
+
 
 import { getCountryDetail } from "../fetch/fetch-country-detail"
+import { CountryTpe } from "../types/CountryTypeApi"
 
 export const useCountryDetail = ({ code }: { code: string }) => {
-  const [data, setData] = useState({})
+  const [data, setData] = useState<CountryTpe | undefined>()
   const [loading, setLoading] = useState(false)
   useEffect(() => {
     setLoading(true)
@@ -18,7 +21,7 @@ export const useCountryDetail = ({ code }: { code: string }) => {
   }, [code])
 
   return {
-    data: data || {},
+    data: data as CountryTpe,
     loading,
   }
 }
