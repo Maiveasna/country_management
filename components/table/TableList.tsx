@@ -1,24 +1,36 @@
 "use client"
 
-import   _ from "lodash"
-import { useCallback, useEffect, useMemo, useState } from "react"
-import Image from "next/image"
-import { CountryTpe } from "@/lib/types/CountryTypeApi"
 import {
   Table,
-  TableBody,
-  TableCaption,
-  TableCell,
+  TableBody, TableCell,
   TableFooter,
   TableHead,
   TableHeader,
-  TableRow,
+  TableRow
 } from "@/components/ui/table"
+import { CountryTpe } from "@/lib/types/CountryTypeApi"
+import _ from "lodash"
+import Image from "next/image"
+import { useCallback, useMemo, useState } from "react"
+
+import {
+  Select,
+  SelectContent,
+  SelectGroup,
+  SelectItem,
+  SelectLabel,
+  SelectTrigger,
+  SelectValue
+} from "@/components/ui/select"
 
 import Pagination from "../pagination/Pagination"
 import { Input } from "../ui/input"
-import { Label } from "../ui/label"
-import  { useRouter} from "next/navigation";
+
+const dataSort = [
+  "default" ,
+  "asc" ,
+  "desc"
+]
 
 type Props = {
   data?: CountryTpe[]
@@ -29,12 +41,22 @@ let PageSize = 25
 function TableList({ data = [] , searchQuery }: Props) {
   const [ dataLocal ,  setDataLocal] = useState( () => data)
   const [currentPage, setCurrentPage] = useState(1)
+   const [ sort , setSort ] = useState<"asc" | "desc" | "default"  | string>("default")
   const [search, setSearch] =useState("");
+  
+  ///  bind data by search, sort, pagination
   const currentTableData = useMemo(() => {
     const firstPageIndex = (currentPage - 1) * PageSize
     const lastPageIndex = firstPageIndex + PageSize
-    return dataLocal?.slice(firstPageIndex, lastPageIndex)
-  }, [currentPage , dataLocal])
+    return dataLocal?.slice(firstPageIndex, lastPageIndex).sort((a, b) => {
+      // sort data 
+      if(sort == "asc")
+     return   a.name.official  >   b.name.official  ? 1 : -1
+     else if (sort == "desc") {
+       return   a.name.official  <   b.name.official  ? 1 : -1
+     }else return 0
+   })
+  }, [currentPage , dataLocal , sort])
   
   
 //  set search value and filter data by search
@@ -42,7 +64,7 @@ function TableList({ data = [] , searchQuery }: Props) {
     const search = e.target.value
      setCurrentPage(1)
     const searchData = e.target.value ? data?.filter((item: CountryTpe) =>
-    [item.name.official, item?.name.nativeName , item?.altSpellings?.join(" ")].join(" ").toLowerCase().includes(search.toLowerCase().trim())) : data
+    [item.name.official].join(" ").toLowerCase().includes(search.toLowerCase().trim())) : data
      setSearch(e.target.value)
      setDataLocal(searchData)
      //router.replace(`?s=${search}` for server-side
@@ -52,19 +74,38 @@ function TableList({ data = [] , searchQuery }: Props) {
    const handleChange = useCallback(
     _.debounce(e => handleSearch(e), 100) , [search]
     );
-
+  
+     const handleSort = (e:string) => {
+      setCurrentPage(1) // reset to page 1
+      setSort(e)
+     }
+    
   return (
     <Table className="w-full flex  flex-col">
-      <TableHeader className="w-full flex flex-col space-y-4">
+      <TableHeader className="w-full flex flex-col space-y-4 ">
          <TableRow  className=" flex justify-end pb-4 border-none">
-         <TableHead className="py-2 flex justify-end " >
+           <TableHead className="py-2 flex justify-end " >
             <Input type="text" defaultValue={search} onChange={(e) => handleChange(e)} placeholder="Search..." className="w-72" />
           </TableHead>
-          {/*<TableHead className="py-2 flex items-center justify-center space-x-2 ">
-          <Label>
-            Sort
-          </Label>
-          </TableHead>*/}
+          <TableHead className="py-2 pl-0 pr-2 flex items-center justify-center">
+          <Select  defaultValue={sort} onValueChange={e =>  handleSort(e)}>
+          
+            <SelectTrigger className="capitalize">
+               <span className="pr-2"> Sort Name By: </span>
+              <SelectValue placeholder="Sort By Country Name" />
+            </SelectTrigger>
+            <SelectContent >
+              <SelectGroup >
+                <SelectLabel className="capitalize">{sort}</SelectLabel>
+                {
+                  dataSort?.map((s , index) => {
+                    return <SelectItem  key={index} className="capitalize" value={s}>{s}</SelectItem>
+                  })
+                }
+              </SelectGroup>
+            </SelectContent>
+         </Select>
+          </TableHead>
          </TableRow>
         <TableRow  className="grid grid-cols-7">
           <TableHead colSpan={1} className=" whitespace-nowrap">
