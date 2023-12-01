@@ -22,7 +22,21 @@ Have fun and happy coding! 😁😁
 - Search country
 - Pagination of countries listing
 
-## Getting Started
+## Tech Stack
+
+**Front-End:** 
+- React
+- NextJs V.14.0.0
+- Tailwind CSS class sorting, merging and linting
+- Shadcn-Ui
+- Radix UI Primitives
+- Icons from [Lucide](https://lucide.dev)
+- Dark mode with `next-themes
+- TypeScript
+
+**Deploy:**
+- Vercel
+
 #### source 
  
  > ```javascript 
@@ -32,7 +46,7 @@ Have fun and happy coding! 😁😁
   #### url for test 
  
  > ```javascript
-> https://country-management-pu4p707jh-maiveasna.vercel.app/
+> https://country-management-8z3e2ekfj-maiveasna.vercel.app/
 > ```
 
 
@@ -78,21 +92,7 @@ API V3
 > https://restcountries.com/#rest-countries
 > ```
 
-Note: problem of apis in v3 tha not support pagination, search, so we need to do it by front-end
-
-## Tech Stack
-
-**Front-End:** 
-- React
-- NextJs V.14.0.0
-- Tailwind CSS class sorting, merging and linting
-- Shadcn-Ui
-- Radix UI Primitives
-- Icons from [Lucide](https://lucide.dev)
-- Dark mode with `next-themes
-
-**Deploy:**
-- Vercel
+Note: problem of apis in v3 tha not support pagination, so we need to do it by front-end. the search country has two options search in `local state` and search from `api`
 
 ## Authors
     
