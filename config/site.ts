@@ -1,9 +1,8 @@
 export type SiteConfig = typeof siteConfig
 
 export const siteConfig = {
-  name: "Next.js",
-  description:
-    "Beautifully designed components built with Radix UI and Tailwind CSS.",
+  name: "Country System",
+  description: "Here my simple of testing project with countries.",
   mainNav: [
     {
       title: "Home",
@@ -19,8 +18,7 @@ export const siteConfig = {
     },
   ],
   links: {
-    twitter: "https://twitter.com/shadcn",
-    github: "https://github.com/shadcn/ui",
-    docs: "https://ui.shadcn.com",
+    twitter: "https://twitter.com/veasnamai_",
+    github: "https://github.com/Maiveasna/country_management",
   },
 }
