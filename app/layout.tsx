@@ -33,9 +33,9 @@ interface RootLayoutProps {
 export default function RootLayout({ children }: RootLayoutProps) {
   return (
     <>
-      <html lang="en" suppressHydrationWarning={true}>
+      <html lang="en" >
         <head />
-        <body className={cn("min-h-screen bg-background select-none")}>
+        <body suppressHydrationWarning={true} className={cn("min-h-screen bg-background select-none")}>
           <ThemeProvider attribute="class" defaultTheme="system">
             <div className="relative flex min-h-screen flex-col">
               <SiteHeader />
