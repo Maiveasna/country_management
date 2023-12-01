@@ -123,7 +123,6 @@ function TableList({ data = [], useApi, searchQuery }: Props) {
   return (
     <Table className="w-full flex  flex-col">
       <ModalCountryDetail
-         key={countryDetail?.data?.cca3}
         onClose={() => setCountryDetail({ ...countryDetail, open: false })}
         open={countryDetail?.open}
         data={countryDetail?.data}
