@@ -123,6 +123,7 @@ function TableList({ data = [], useApi, searchQuery }: Props) {
   return (
     <Table className="w-full flex  flex-col">
       <ModalCountryDetail
+         key={countryDetail?.data?.cca3}
         onClose={() => setCountryDetail({ ...countryDetail, open: false })}
         open={countryDetail?.open}
         data={countryDetail?.data}
@@ -191,6 +192,7 @@ function TableList({ data = [], useApi, searchQuery }: Props) {
       </TableHeader>
       <TableBody className="overflow-y-scroll w-full">
         {currentTableData?.map((coun: any, index: number) => (
+          
           <TableRow className="grid grid-cols-7" key={index}>
             <TableCell className=" flex items-center justify-start">
               <Image
@@ -202,9 +204,10 @@ function TableList({ data = [], useApi, searchQuery }: Props) {
             </TableCell>
             <TableCell
               onClick={() => handleCountryDetail(coun)}
-              className="font-medium"
+              className="font-medium cursor-pointer hover:text-primary"
             >
               {coun?.name?.official}
+             
             </TableCell>
             <TableCell>{coun?.cca2}</TableCell>
             <TableCell>{coun?.cca3}</TableCell>

@@ -12,7 +12,7 @@ export const CountryApi = {
     search,
     fields = ["name", "flags", "cca2", "cca3", "altSpellings", "idd"],
   }: ParamsType) => {
-    const qParams = []
+    const qParams = ["fullText=true"]
     fields?.length > 0 &&
       qParams.push(`fields=${fields?.map((q) => q).join(",")}`)
 
@@ -23,5 +23,33 @@ export const CountryApi = {
     return await API.get(URL)
       .then((response) => response)
       .then((data) => data)
+  },
+  countryDetail: async ({ code }: { code: string }) => {
+    if (!code) return
+    let URL = `/v3.1/alpha?codes=${code}` // codes
+    return await API.get(URL).then((response) => response.data)
+  },
+  navigateUsingGoogleMap: (
+    to: string | { lat: string; lng: string },
+    waypoints: { longitude: any; latitude: any }[] = []
+  ) => {
+    let url = "https://www.google.com/maps/dir/?api=1&dir_action=navigate" //&travelmode=driving
+    const destination = _.isString(to)
+      ? to
+      : _.isObject(to)
+      ? `${to.lat},${to.lng}`
+      : ""
+    url += `&destination=${destination}`
+
+    if (waypoints && waypoints.length > 0) {
+      const waypointParams = waypoints
+        .map(({ latitude, longitude }) => {
+          return `${latitude},${longitude}`
+        })
+        .join("|")
+
+      url += `&waypoints=${waypointParams}`
+    }
+    return url
   },
 }
