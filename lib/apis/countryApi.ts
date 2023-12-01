@@ -1,6 +1,7 @@
-import _ from "lodash"
+import _ from "lodash";
 
-import { CountryTpe } from "../types/CountryTypeApi"
+
+
 import API from "./API"
 
 type ParamsType = {
@@ -12,7 +13,7 @@ export const CountryApi = {
     search,
     fields = ["name", "flags", "cca2", "cca3", "altSpellings", "idd"],
   }: ParamsType) => {
-    const qParams = ["fullText=true"]
+    const qParams = []
     fields?.length > 0 &&
       qParams.push(`fields=${fields?.map((q) => q).join(",")}`)
 
