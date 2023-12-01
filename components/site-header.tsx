@@ -1,3 +1,4 @@
+import Image from "next/image"
 import Link from "next/link"
 
 import { siteConfig } from "@/config/site"
@@ -49,15 +50,22 @@ export function SiteHeader() {
                 </div>
               </Link>
               <ThemeToggle />
+              <Image
+                alt="avarta"
+                height={30}
+                width={30}
+                className=" rounded-full border border-gray-100"
+                src={"https://avatars.githubusercontent.com/u/59038294?v=4"}
+              />
             </nav>
           </div>
           <div className="md:hidden items-center justify-center flex space-x-2">
             {/*<SearchBottomSheet />*/}
             <Link href={"/images"}>
-            <Icons.image className="w-5 h-5 " />
+              <Icons.image className="w-5 h-5 " />
             </Link>
             <Link href={"/search"}>
-            <Icons.search className="w-5 h-5 " />
+              <Icons.search className="w-5 h-5 " />
             </Link>
             <ThemeToggle />
             <MenuSidebar />
