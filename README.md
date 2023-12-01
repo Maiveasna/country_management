@@ -1,15 +1,15 @@
 
 
-<p align="center">
-    Countries Management
-</p>
+<h1 align="center">
+    Country Management
+</h1>
 
 
 ## Overview
 
 Hello Dear,
 
-I'm Mai Veasna, Currently, I'm a full-stack developer, and I grew up in the beautiful world 😁.I make this project for a simple of `country management` and open source for sharing with those who want to test.The below section will show about instruction to use that project. 
+I'm Mai Veasna, Currently, I'm a full-stack developer, and I grew up in the beautiful world 😁. I maked this project for a simple of `country management` and open source for sharing with those who want to test.The below section will show about instruction to use that project. 
 
 Have fun and happy coding! 😁😁
 
@@ -38,6 +38,10 @@ Have fun and happy coding! 😁😁
 
 First install dependent
 
+```bash
+# install on your machine
+Node: >=v18.17.0
+```
 
 ```bash
 yarn 
@@ -45,6 +49,22 @@ yarn
 npm  install
 #or
 pnpm
+```
+
+```bash
+yarn build
+#or
+npm run build
+#or
+pnpm build
+```
+
+```bash
+yarn start
+#or
+npm run start
+#or
+pnpm start
 ```
 
 ## Set up
@@ -58,31 +78,21 @@ API V3
 > https://restcountries.com/#rest-countries
 > ```
 
-problem  of api tha not support pagination, search,
+Note: problem of apis in v3 tha not support pagination, search, so we need to do it by front-end
 
-  
-  
-run the development server:
-
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-```
 ## Tech Stack
 
-**Client:** React,TailwindCSS, NextJs V.13,
+**Front-End:** 
+- React
+- NextJs V.14.0.0
+- Tailwind CSS class sorting, merging and linting
+- Shadcn-Ui
+- Radix UI Primitives
+- Icons from [Lucide](https://lucide.dev)
+- Dark mode with `next-themes
 
-**Server:** AWS,Vercel, 
-    
-**Database:** PostgreSQL,
-    
-**Backend:** Prisma, NodeJs,
-    
-    
-
+**Deploy:**
+- Vercel
 
 ## Authors
     
@@ -91,26 +101,5 @@ pnpm dev
 ## Support
 
 For support, email maiveasna9@gmail.com
-
-
-
-
-    
-
-
-## Features
-
-- Next.js 13 App Directory
-- Radix UI Primitives
-- Tailwind CSS
-- Icons from [Lucide](https://lucide.dev)
-- Dark mode with `next-themes`
-- Tailwind CSS class sorting, merging and linting.
-
-## License
-
-Licensed under the [MIT license](https://github.com/shadcn/ui/blob/main/LICENSE.md).
-
-
 
 
