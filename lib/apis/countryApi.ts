@@ -14,7 +14,7 @@ export const CountryApi = {
     fields?.length > 0 &&
       qParams.push(`fields=${fields?.map((q) => q).join(",")}`)
     //codes?.length > 0 && qParams.push(`codes=${codes?.map((q) => q).join(",")}`)
-    return await API.get<{data: CountryTpe[]}>(
+    return await API.get(
       `https://restcountries.com/v3.1/all?${qParams.join("&")}`
     )
       .then((response) => response)
