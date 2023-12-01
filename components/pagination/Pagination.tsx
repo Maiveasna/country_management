@@ -44,16 +44,18 @@ const Pagination = (props: Props) => {
 
   //  return <div> page</div>
   return (
-    <ul className={clsx("flex space-x-2 w-full", className)}>
+    <div className=" w-full flex justify-between items-center">
+        <div className=" flex ">Per page : {pageSize}</div>
+       <ul className={clsx("flex space-x-2 ", className)}>
       <Button  variant={  currentPage === 1 ?  "secondary" :  "default" }   onClick={onPrevious} disabled={ currentPage === 1}>
       Prev
       </Button>
-      {paginationRange.map((pageNumber) => {
+      {paginationRange.map((pageNumber , index) => {
         if (pageNumber === DOTS) {
-          return <li className="pagination-item dots">&#8230;</li>
+          return <li key={index} className="pagination-item dots">&#8230;</li>
         }
         return (
-          <Button  onClick={() => onPageChange(pageNumber)}  variant={ pageNumber === currentPage ?  "default" : "outline"} disabled={ pageNumber === currentPage}>  {pageNumber}</Button>
+          <Button  key={index} onClick={() => onPageChange(pageNumber)}  variant={ pageNumber === currentPage ?  "default" : "outline"} disabled={ pageNumber === currentPage}>  {pageNumber}</Button>
         )
       })}
       
@@ -61,6 +63,8 @@ const Pagination = (props: Props) => {
       Next
       </Button>
     </ul>
+    </div>
+    
   )
 }
 
