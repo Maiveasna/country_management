@@ -25,11 +25,6 @@ API.interceptors.request.use(async (config) => {
     if (token) {
       config.headers["Authorization"] = `Bearer ${token}`
     }
-
-    var requestLogger = (request: AxiosRequestConfig) => {
-      console.log(`::::REQUEST STARTED FOR ${request.url}`)
-      return request
-    }
     var responseLogger = (response: AxiosResponse) => {
       return response
     }
@@ -37,7 +32,6 @@ API.interceptors.request.use(async (config) => {
       error && error.response && console.log(error.response.data)
       return Promise.reject(error)
     }
-    API.interceptors.request.use(requestLogger)
     API.interceptors.response.use(responseLogger, responseErrorLogger)
   }
   return config
