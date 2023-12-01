@@ -36,9 +36,9 @@ export default function RootLayout({ children }: RootLayoutProps) {
       <html lang="en" >
         <head />
         <body suppressHydrationWarning={true} className={cn("min-h-screen bg-background select-none")}>
-          <ThemeProvider attribute="class" defaultTheme="system">
+          <ThemeProvider attribute="class">
             <div className="relative flex min-h-screen flex-col">
-              <div className=" sticky top-0 bg-white z-30">
+              <div className=" bg-background sticky top-0 z-30">
               <SiteHeader />
               </div>
               <div className="flex-1">{children}</div>
