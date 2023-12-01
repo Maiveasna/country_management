@@ -31,14 +31,9 @@ export default async function Page({
 }) {
   const { query, s } = searchParams ?? {}
   const data = (await getCountryList()) || []
-  const filterData = s
-    ? data?.filter((item: CountryTpe) =>
-        [item.name.common].join(" ").toLowerCase().includes(s.toLowerCase())
-      )
-    : data
   return (
     <Container>
-      <TableList data={filterData} />
+      <TableList searchQuery={s} data={data} />
     </Container>
   )
 }

@@ -1,8 +1,8 @@
 "use client"
 
-import { useMemo, useState } from "react"
+import   _ from "lodash"
+import { useCallback, useEffect, useMemo, useState } from "react"
 import Image from "next/image"
-
 import { CountryTpe } from "@/lib/types/CountryTypeApi"
 import {
   Table,
@@ -17,29 +17,56 @@ import {
 
 import Pagination from "../pagination/Pagination"
 import { Input } from "../ui/input"
+import { Label } from "../ui/label"
+import  { useRouter} from "next/navigation";
 
 type Props = {
   data?: CountryTpe[]
+  searchQuery?: string
 }
 
 let PageSize = 25
-function TableList({ data = [] }: Props) {
+function TableList({ data = [] , searchQuery }: Props) {
+  const [ dataLocal ,  setDataLocal] = useState( () => data)
   const [currentPage, setCurrentPage] = useState(1)
+  const [search, setSearch] =useState("");
   const currentTableData = useMemo(() => {
     const firstPageIndex = (currentPage - 1) * PageSize
     const lastPageIndex = firstPageIndex + PageSize
-    return data?.slice(firstPageIndex, lastPageIndex)
-  }, [currentPage])
-
-  console.log("pppp page", currentTableData)
+    return dataLocal?.slice(firstPageIndex, lastPageIndex)
+  }, [currentPage , dataLocal])
+  
+  
+//  set search value and filter data by search
+   const handleSearch = (e: any) => {
+    const search = e.target.value
+     setCurrentPage(1)
+    const searchData = e.target.value ? data?.filter((item: CountryTpe) =>
+    [item.name.official, item?.name.nativeName , item?.altSpellings?.join(" ")].join(" ").toLowerCase().includes(search.toLowerCase().trim())) : data
+     setSearch(e.target.value)
+     setDataLocal(searchData)
+     //router.replace(`?s=${search}` for server-side
+   }
+   
+  // the debounce use for user typing... with delay timeout
+   const handleChange = useCallback(
+    _.debounce(e => handleSearch(e), 100) , [search]
+    );
 
   return (
     <Table className="w-full flex  flex-col">
-      <TableHeader className=" bg-white w-full space-y-4">
-        {/*<TableHead colSpan={1} className=" whitespace-nowrap">
-          <Input placeholder="Search" />
-        </TableHead>*/}
-        <TableRow className=" grid grid-cols-7">
+      <TableHeader className="w-full flex flex-col space-y-4">
+         <TableRow  className=" flex justify-end pb-4 border-none">
+         <TableHead className="py-2 flex justify-end " >
+            <Input type="text" defaultValue={search} onChange={(e) => handleChange(e)} placeholder="Search..." className="w-72" />
+          </TableHead>
+          {/*<TableHead className="py-2 flex items-center justify-center space-x-2 ">
+          <Label>
+            Sort
+          </Label>
+          </TableHead>*/}
+         </TableRow>
+        <TableRow  className="grid grid-cols-7">
           <TableHead colSpan={1} className=" whitespace-nowrap">
             Flags
           </TableHead>
@@ -98,7 +125,7 @@ function TableList({ data = [] }: Props) {
           >
             <Pagination
               currentPage={currentPage}
-              totalCount={data.length}
+              totalCount={dataLocal.length}
               pageSize={PageSize}
               onPageChange={(page) => setCurrentPage(page)}
             />

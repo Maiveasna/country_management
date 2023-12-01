@@ -2,6 +2,7 @@ import React from "react"
 import clsx from "clsx"
 
 import { DOTS, usePagination } from "../../lib/hook/usePagination"
+import { Button } from "../ui/button"
 
 type Props = {
   totalCount: number
@@ -43,48 +44,22 @@ const Pagination = (props: Props) => {
 
   //  return <div> page</div>
   return (
-    <ul className={clsx("flex space-x-4 w-full", className)}>
-      <li
-        className={clsx(
-          " flex items-center justify-center",
-          currentPage === 1
-            ? "pointer-events-none text-gray-200"
-            : "  cursor-pointer"
-        )}
-        onClick={onPrevious}
-      >
-        Prev
-      </li>
+    <ul className={clsx("flex space-x-2 w-full", className)}>
+      <Button  variant={  currentPage === 1 ?  "secondary" :  "default" }   onClick={onPrevious} disabled={ currentPage === 1}>
+      Prev
+      </Button>
       {paginationRange.map((pageNumber) => {
         if (pageNumber === DOTS) {
           return <li className="pagination-item dots">&#8230;</li>
         }
-
         return (
-          <li
-            className={clsx(
-              " w-10 h-10 rounded-full border flex items-center justify-center",
-              pageNumber === currentPage
-                ? " text-teal-500 border-teal-500 "
-                : "text-black"
-            )}
-            onClick={() => onPageChange(pageNumber)}
-          >
-            {pageNumber}
-          </li>
+          <Button  onClick={() => onPageChange(pageNumber)}  variant={ pageNumber === currentPage ?  "default" : "outline"} disabled={ pageNumber === currentPage}>  {pageNumber}</Button>
         )
       })}
-      <li
-        className={clsx(
-          " flex items-center justify-center",
-          currentPage === lastPage
-            ? " pointer-events-none text-gray-200"
-            : " cursor-pointer"
-        )}
-        onClick={onNext}
-      >
-        Next
-      </li>
+      
+      <Button   variant={ currentPage === lastPage ?  "secondary" :  "default" }   onClick={onNext} disabled={ currentPage === lastPage}>
+      Next
+      </Button>
     </ul>
   )
 }
