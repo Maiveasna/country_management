@@ -1,11 +1,13 @@
-
 import { Metadata, ResolvingMetadata } from "next"
 import Link from "next/link"
+
 import { siteConfig } from "@/config/site"
 import { getCountryList } from "@/lib/fetch/fetch-list"
+import { CountryTpe } from "@/lib/types/CountryTypeApi"
 import { Button, buttonVariants } from "@/components/ui/button"
 import { Skeleton } from "@/components/ui/skeleton"
 import Container from "@/components/container/container"
+import TableList from "@/components/table/TableList"
 
 export async function generateMetadata(
   props: { params?: { id?: string }; searchParams?: { query?: string } },
@@ -24,30 +26,19 @@ export default async function Page({
   params: { id?: string }
   searchParams?: {
     query?: string
+    s?: string // search
   }
 }) {
-  const { query } = searchParams ?? {}
-  const { data } = await getCountryList()
-
+  const { query, s } = searchParams ?? {}
+  const data = (await getCountryList()) || []
+  const filterData = s
+    ? data?.filter((item: CountryTpe) =>
+        [item.name.common].join(" ").toLowerCase().includes(s.toLowerCase())
+      )
+    : data
   return (
     <Container>
-      <div className=" flex flex-col">
-        {data?.map((coun: any, index: number) => {
-          return (
-              <Link
-              key={index}
-                className="flex grid grid-cols-5 gap-4"
-                href={`/images/${coun?.idd?.root}`}
-              >
-                 <span> idd: {coun?.idd?.root}</span>
-                <span> name official: {coun?.name?.official}</span>
-                <span> / cca2:{coun?.cca2}</span>
-                <span> / cca3:{coun?.cca3}</span>
-                <span> / cca3:{coun?.altSpellings?.join(",")}</span>
-              </Link>
-          )
-        })}{" "}
-        </div>
+      <TableList data={filterData} />
     </Container>
   )
 }
